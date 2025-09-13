@@ -1,11 +1,11 @@
-import os
 import subprocess
 
 FileDir = "Data.txt"
 
-programsWDir = dict()
+programsDirectory = dict()#Словарб с название программ и их путями 
 
-programsQueue = []
+programsQueue = []#Список с очередью прогрмаммами для запуска
+
 flag = True
 
 
@@ -15,31 +15,37 @@ def Add(val):
     
 def StartProgramms(listWPrograms):
     for prog in listWPrograms:
-        subprocess.Popen(programsWDir[prog])
+        subprocess.Popen(programsDirectory[prog])
 
 def FillDictionary():
     with open(FileDir,"r") as file:
         allFile =  file.read()
         strin = allFile.split("\n")[:-1:]
-        print(strin)
         for i in strin:
             progN = i.split(":")
-            programsWDir[f"{progN[0]}"]  = f"{progN[1]}"
-    
+            programsDirectory[f"{progN[0]}"]  = f"{progN[1]}"
+            
 
+FillDictionary()
+
+print("\033[31mДоступные комманды:\033[0m")
+print("\033[32mAdd-сохранение пути программы\033[0m")
+print("\033[33mНазвание программ-запуск программы в очередь для запуска\033[0m")
+print("\033[34mList-список программ в очереди для запуска\033[0m")
+print("\033[35mEnd-завершение работы программы и запуск приложение находящиеся в списке(список можно узнать по команде-List)\033[0m")
 
 
 while flag:
     uinput = input("Введите команду:")
+ 
     
     if uinput.lower() == "add":
         addFile = input("введите название файла с путем пример(VsCode:C:vscode.exe):")
         Add(addFile)
-    if uinput.lower() == "check":
         FillDictionary()
         
     if uinput != None:
-        for key in programsWDir:
+        for key in programsDirectory:
             if(uinput.lower() == key.lower()):
                 programsQueue.append(key)
     
