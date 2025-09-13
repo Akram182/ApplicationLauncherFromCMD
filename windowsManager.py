@@ -15,6 +15,8 @@ def Add(val):
     
 def StartProgramms(listWPrograms):
     for prog in listWPrograms:
+        print("prog" + prog)
+        print("prog" + programsDirectory[prog])
         subprocess.Popen(programsDirectory[prog])
 
 def FillDictionary():
@@ -22,9 +24,9 @@ def FillDictionary():
         allFile =  file.read()
         strin = allFile.split("\n")[:-1:]
         for i in strin:
-            progN = i.split(":")
+            progN = i.split("-")
             programsDirectory[f"{progN[0]}"]  = f"{progN[1]}"
-            
+                        
 
 
 
@@ -40,7 +42,7 @@ while flag:
  
     
     if uinput.lower() == "add":
-        addFile = input("введите название файла с путем пример(VsCode:C:vscode.exe):")
+        addFile = input("введите название файла с путем пример(VsCode-C:vscode.exe):")
         Add(addFile)
         FillDictionary()
         
