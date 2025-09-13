@@ -26,7 +26,7 @@ def FillDictionary():
             programsDirectory[f"{progN[0]}"]  = f"{progN[1]}"
             
 
-FillDictionary()
+
 
 print("\033[31mДоступные комманды:\033[0m")
 print("\033[32mAdd-сохранение пути программы\033[0m")
@@ -45,11 +45,13 @@ while flag:
         FillDictionary()
         
     if uinput != None:
+        FillDictionary()
         for key in programsDirectory:
             if(uinput.lower() == key.lower()):
                 programsQueue.append(key)
     
     if uinput.lower() == "list":
+        FillDictionary()
         for i in programsQueue:
             print(f"{i}")
                 
