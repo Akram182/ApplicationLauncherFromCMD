@@ -4,27 +4,27 @@ import subprocess
 FileDir = "Data.txt"
 
 programsWDir = dict()
+
 programsQueue = []
 flag = True
 
 
 def Add(val):
     with open(FileDir,"a") as file:
-        file.write(f"\n{val}")
+        file.write(f"{val}\n")
     
 def StartProgramms(listWPrograms):
     for prog in listWPrograms:
-        subprocess.Popen(prog)
+        subprocess.Popen(programsWDir[prog])
 
 def FillDictionary():
     with open(FileDir,"r") as file:
-        with open("Data.txt","r") as file:
-            allFile =  file.read()
-            strin = allFile.split("\n")
-            print(strin)
-            for i in strin:
-                progN = i.split(":")
-                programsWDir[f"{progN[0]}"]  = f"{progN[1]}"
+        allFile =  file.read()
+        strin = allFile.split("\n")[:-1:]
+        print(strin)
+        for i in strin:
+            progN = i.split(":")
+            programsWDir[f"{progN[0]}"]  = f"{progN[1]}"
     
 
 
@@ -40,12 +40,12 @@ while flag:
         
     if uinput != None:
         for key in programsWDir:
-            if(uinput.lower() == key):
-                programsQueue.append(programsWDir[key])
+            if(uinput.lower() == key.lower()):
+                programsQueue.append(key)
     
-    if uinput == "list":
-        for i in programsWDir:
-            print(f"key:{key},val:{programsWDir[key]}")
+    if uinput.lower() == "list":
+        for i in programsQueue:
+            print(f"{i}")
                 
     if uinput.lower() == "end":
         flag = False
